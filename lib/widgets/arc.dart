@@ -35,7 +35,6 @@ class Arc extends StatelessWidget {
                   child: Container(
                     margin: EdgeInsets.all(8.0),
                     decoration: BoxDecoration(
-//              color: Colors.blue,
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Colors.blue,

@@ -9,12 +9,11 @@ import 'package:sandbox/widgets/arc_slider.dart';
 void main() => runApp(
       BlocProvider(
         bloc: ArcBloc(),
-        child: MyApp(),
+        child: App(),
       ),
     );
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         home: Scaffold(
@@ -36,13 +35,7 @@ class MyApp extends StatelessWidget {
                     horizontal: 16.0,
                     vertical: 32.0,
                   ),
-                  child: Row(
-                    children: <Widget>[
-                      Text('0 π'),
-                      Expanded(child: ArcSlider()),
-                      Text('4 π'),
-                    ],
-                  ),
+                  child: ArcSlider(),
                 ),
               ],
             ),

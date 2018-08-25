@@ -1,8 +1,3 @@
-# sandbox
+# Arc Sample
 
-A new Flutter project.
-
-## Getting Started
-
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+https://twitter.com/_mono/status/1033245113747566592

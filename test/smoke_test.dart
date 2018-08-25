@@ -16,15 +16,19 @@ void main() {
       bloc: bloc,
       child: App(),
     ));
+    await tester.pump();
+
     expect(find.text('ラジアン: 0.00 (0.00 π)'), findsOneWidget);
     expect(find.text('x: 1.00'), findsOneWidget);
     expect(find.text('y: 0.00'), findsOneWidget);
+    expect(find.text('🍣'), findsOneWidget);
 
-    bloc.valueUpdater.add(3.14);
-    await tester.pump();
+    bloc.valueUpdater.add(9.42);
+    await tester.pumpAndSettle();
 
-    expect(find.text('ラジアン: 3.14 (1.00 π)'), findsOneWidget);
+    expect(find.text('ラジアン: 9.42 (3.00 π)'), findsOneWidget);
     expect(find.text('x: -1.00'), findsOneWidget);
     expect(find.text('y: 0.00'), findsOneWidget);
+    expect(find.text('🍨'), findsOneWidget);
   });
 }

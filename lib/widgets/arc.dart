@@ -5,12 +5,14 @@ import 'package:sandbox/bloc/arc_bloc.dart';
 import 'package:sandbox/bloc/bloc_provider.dart';
 
 class Arc extends StatelessWidget {
+  final edge = 24.0;
+
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<ArcBloc>(context);
     return LayoutBuilder(builder: (context, constraints) {
       final radius =
-          (math.min(constraints.maxWidth, constraints.maxHeight) / 2.0 - 8.0);
+          (math.min(constraints.maxWidth, constraints.maxHeight) / 2.0 - edge);
       return StreamBuilder<double>(
           initialData: 0.0,
           stream: bloc.value,
@@ -23,6 +25,7 @@ class Arc extends StatelessWidget {
                 _buildVerticalLine(),
                 _buildArc(),
                 _buildPoint(
+                  context: context,
                   radius: radius,
                   x: x,
                   y: y,
@@ -36,24 +39,35 @@ class Arc extends StatelessWidget {
   }
 
   Widget _buildPoint({
+    BuildContext context,
     double radius,
     double x,
     double y,
     double maxWidth,
     double maxHeight,
   }) {
+    final pointSize = 48.0;
     return Positioned(
-      left: -8.0 + maxWidth / 2.0 + x * radius,
-      bottom: -8.0 + maxHeight / 2.0 + y * radius,
+      left: -pointSize / 2 + maxWidth / 2.0 + x * radius,
+      bottom: -pointSize / 2 + maxHeight / 2.0 + y * radius,
       child: Stack(
         overflow: Overflow.visible,
         children: [
           Container(
-            width: 16.0,
-            height: 16.0,
+            width: pointSize,
+            height: pointSize,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.blue,
+              color: Colors.black,
+            ),
+            child: Center(
+              child: StreamBuilder<String>(
+                stream: BlocProvider.of<ArcBloc>(context).text,
+                builder: (context, snap) => Text(
+                      snap.data ?? '',
+                      style: TextStyle(fontSize: 32.0),
+                    ),
+              ),
             ),
           ),
           Positioned(
@@ -74,7 +88,7 @@ class Arc extends StatelessWidget {
   Widget _buildArc() {
     return Center(
       child: Container(
-        margin: EdgeInsets.all(8.0),
+        margin: EdgeInsets.all(edge),
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(

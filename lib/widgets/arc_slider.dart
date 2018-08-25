@@ -5,7 +5,8 @@ import 'package:sandbox/bloc/arc_bloc.dart';
 import 'package:sandbox/bloc/bloc_provider.dart';
 
 class ArcSlider extends StatelessWidget {
-  final maxPi = 4;
+  final maxPi = 6;
+
   @override
   Widget build(BuildContext context) {
     return Row(

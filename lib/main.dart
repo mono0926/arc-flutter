@@ -25,7 +25,7 @@ class App extends StatelessWidget {
               children: [
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(32.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Arc(),
                   ),
                 ),

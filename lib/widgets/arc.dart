@@ -15,8 +15,6 @@ class Arc extends StatelessWidget {
           initialData: 0.0,
           stream: bloc.value,
           builder: (context, snap) {
-            final x = math.cos(snap.data);
-            final y = math.sin(snap.data);
             return Stack(
               children: <Widget>[
                 _buildHorizontalLine(),
@@ -25,8 +23,7 @@ class Arc extends StatelessWidget {
                 _buildPoint(
                   context: context,
                   constraints: constraints,
-                  x: x,
-                  y: y,
+                  radian: snap.data,
                 ),
               ],
             );
@@ -37,11 +34,12 @@ class Arc extends StatelessWidget {
   Widget _buildPoint({
     @required BuildContext context,
     @required BoxConstraints constraints,
-    @required double x,
-    @required double y,
+    @required double radian,
   }) {
     final biggest = constraints.biggest;
     final radius = (math.min(biggest.width, biggest.height) / 2.0 - edge);
+    final x = math.cos(radian);
+    final y = math.sin(radian);
     final pointSize = 48.0;
     return Positioned(
       left: -pointSize / 2 + biggest.width / 2.0 + x * radius,

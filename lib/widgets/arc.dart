@@ -11,8 +11,6 @@ class Arc extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<ArcBloc>(context);
     return LayoutBuilder(builder: (context, constraints) {
-      final radius =
-          (math.min(constraints.maxWidth, constraints.maxHeight) / 2.0 - edge);
       return StreamBuilder<double>(
           initialData: 0.0,
           stream: bloc.value,
@@ -26,11 +24,9 @@ class Arc extends StatelessWidget {
                 _buildArc(),
                 _buildPoint(
                   context: context,
-                  radius: radius,
+                  constraints: constraints,
                   x: x,
                   y: y,
-                  maxWidth: constraints.maxWidth,
-                  maxHeight: constraints.maxHeight,
                 ),
               ],
             );
@@ -39,17 +35,17 @@ class Arc extends StatelessWidget {
   }
 
   Widget _buildPoint({
-    BuildContext context,
-    double radius,
-    double x,
-    double y,
-    double maxWidth,
-    double maxHeight,
+    @required BuildContext context,
+    @required BoxConstraints constraints,
+    @required double x,
+    @required double y,
   }) {
+    final biggest = constraints.biggest;
+    final radius = (math.min(biggest.width, biggest.height) / 2.0 - edge);
     final pointSize = 48.0;
     return Positioned(
-      left: -pointSize / 2 + maxWidth / 2.0 + x * radius,
-      bottom: -pointSize / 2 + maxHeight / 2.0 + y * radius,
+      left: -pointSize / 2 + biggest.width / 2.0 + x * radius,
+      bottom: -pointSize / 2 + biggest.height / 2.0 + y * radius,
       child: Stack(
         overflow: Overflow.visible,
         children: [
